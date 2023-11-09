@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
+  @override
+  const SplashScreen(this._switchToQuizScr, this._switchToLoginScr,
+      {super.key});
+
+  final void Function() _switchToQuizScr;
+  final void Function() _switchToLoginScr;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +58,7 @@ class SplashScreen extends StatelessWidget {
                         const Color.fromARGB(255, 136, 160, 253),
                       ),
                     ),
-                    onPressed: () => {},
+                    onPressed: _switchToQuizScr,
                     icon: const Icon(Icons.arrow_circle_right_outlined),
                     label: const Text(
                       "Start Quiz",
@@ -66,7 +71,7 @@ class SplashScreen extends StatelessWidget {
                         const Color.fromARGB(255, 136, 160, 253),
                       ),
                     ),
-                    onPressed: () => {},
+                    onPressed: _switchToLoginScr,
                     icon: const Icon(Icons.arrow_circle_right_outlined),
                     label: const Text(
                       "Login",
