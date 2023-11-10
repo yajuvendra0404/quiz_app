@@ -5,7 +5,8 @@ import 'dart:math';
 import 'package:quiz_app/model/questions.model.dart';
 
 class QuizScreen extends StatefulWidget {
-  QuizScreen({super.key});
+  const QuizScreen(this.onAnswersSelect, {super.key});
+  final void Function(String answer) onAnswersSelect;
 
   @override
   State<QuizScreen> createState() => _QuizScreenState();
@@ -51,6 +52,7 @@ class _QuizScreenState extends State<QuizScreen> {
               height: 30,
             ),
             ...options.map((e) => getOptions(e, onTap: () {
+                  widget.onAnswersSelect(e);
                   setState(() {
                     counter++;
                   });
@@ -75,16 +77,10 @@ class _QuizScreenState extends State<QuizScreen> {
           borderRadius: BorderRadius.circular(10),
         ),
       ),
-      child: Text(option),
+      child: Text(
+        option,
+        textAlign: TextAlign.center,
+      ),
     );
-    // ElevatedButton(
-    //   style: ButtonStyle(
-    //     backgroundColor: MaterialStateProperty.all(
-    //       const Color.fromARGB(255, 136, 160, 253),
-    //     ),
-    //   ),
-    //   onPressed: onTap,
-    //   child: Text(option ?? 'NO Option'),
-    // );
   }
 }

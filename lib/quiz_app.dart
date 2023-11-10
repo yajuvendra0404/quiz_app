@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/data/questions.data.dart';
 
 import 'package:quiz_app/screens/login_screen.dart';
 import 'package:quiz_app/screens/quiz_srceen.dart';
@@ -14,6 +15,8 @@ class QuizApp extends StatefulWidget {
 class _QuizAppState extends State<QuizApp> {
   Widget? activeScreen;
   int counter = 0;
+  List<String> allSelectedAnswers = [];
+
   @override
   void initState() {
     super.initState();
@@ -22,21 +25,26 @@ class _QuizAppState extends State<QuizApp> {
 
   switchToQuizScr() {
     setState(() {
-      activeScreen = QuizScreen();
+      activeScreen = QuizScreen(onAnswersSelect);
     });
   }
 
   switchToLoginScr() {
     setState(() {
       activeScreen = LoginScreen();
+      if (allSelectedAnswers.length == quizData.length) {
+        allSelectedAnswers = [];
+        SplashScreen(switchToQuizScr, switchToLoginScr);
+      }
     });
   }
 
-  // optionSelected() {
-  //   setState(() {
-  //     activeScreen = QuizScreen();
-  //   });
-  // }
+  onAnswersSelect(String answerselected) {
+    setState(() {
+      allSelectedAnswers.add(answerselected);
+    });
+    print(allSelectedAnswers);
+  }
 
   @override
   Widget build(BuildContext context) {
